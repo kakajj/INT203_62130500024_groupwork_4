@@ -14,20 +14,31 @@
     <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
     <!-- Vue CDN -->
     <script src="https://unpkg.com/vue@next"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" rel="stylesheet" />
     <script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js'></script>
 </head>
 
 <body>
-
     <div id="app">
         <h1 class="text-center pt-10 text-3xl p-6">Like Pic ({{picCount}})</h1>
-        <div class="grid max-w-2xl mx-auto p-8 " v-for="(pic,i) in pics" >
+        <div class="max-w-2xl mx-auto p-8">
+            <span v-if="isSearch" class="material-icons" @click="startSearch">search</span>
+            <div v-else>
+                <input class="border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
+                <button @click="cancelSearch" class="material-icons">cancel</button>
+            </div>
+        </div>
+        <div class="grid max-w-2xl mx-auto p-8 " v-for="(pic,i) in filteredList">
             <a class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-1/4" @click="likePic(i)">
                 <h1 class="text-3xl p-6">{{pic.name}}</h1>
                 <img class="w-full block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
-                <img src="https://www.flaticon.com/svg/vstatic/svg/929/929417.svg?token=exp=1612931256~hmac=8e7aa389989a92e1c1894632f695c382"
-                    class="mx-auto w-10 rounded-b" v-show="pic.like">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mx-auto"
+                    v-show="pic.like">
+                    <path
+                        d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+                </svg>
             </a>
         </div>
     </div>
