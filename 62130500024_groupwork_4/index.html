@@ -23,24 +23,38 @@
 <body>
     <div id="app">
         <h1 class="text-center pt-10 text-3xl p-6">Like Pic ({{picCount}})</h1>
-        <div class="max-w-2xl mx-auto p-8">
+
+        <div class="text-center">
             <span v-if="isSearch" class="material-icons" @click="startSearch">search</span>
             <div v-else>
-                <input class="border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
+                <input class=" border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
                 <button @click="cancelSearch" class="material-icons">cancel</button>
             </div>
         </div>
-        <div class="grid max-w-2xl mx-auto p-8 " v-for="(pic,i) in filteredList">
-            <a class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-1/4" @click="likePic(i)">
-                <h1 class="text-3xl p-6">{{pic.name}}</h1>
-                <img class="w-full block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mx-auto"
-                    v-show="pic.like">
-                    <path
-                        d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
-                </svg>
-            </a>
+
+        <div class="container px-8 py-2 mx-auto lg:px-4">
+            <div class="flex flex-wrap text-center">
+                <div v-if="filteredList.length !== 0" class="px-auto py-6 lg:w-1/3 md:w-full "
+                    v-for="(pic,i) in filteredList">
+                    <div class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-1/2 "
+                        @click="likePic(i)">
+                        <h1 class="text-3xl p-6">{{pic.name}}</h1>
+                        <img class="w-full block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            class="mx-auto" v-show="pic.like">
+                            <path
+                                d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+                        </svg>
+                    </div>
+                </div>
+                <div v-else
+                    class="w-full bg-white rounded h-full text-grey-darkest no-underline shadow-md ma-auto text-center mt-24">
+                    <h1 class="text-7xl">No Image Found</h1>
+                </div>
+            </div>
         </div>
+
+        <!-- ************************************************************* -->
     </div>
 
     <!-- my main.js -->
