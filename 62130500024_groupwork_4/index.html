@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Vue Js - HelloWorld App</title>
+    <title>Blackpink in your area</title>
     <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
     <!-- Using via Google Web Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -20,41 +20,47 @@
     <script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js'></script>
 </head>
 
-<body>
-    <div id="app">
-        <h1 class="text-center pt-10 text-3xl p-6">Like Pic ({{picCount}})</h1>
-
-        <div class="text-center">
-            <span v-if="isSearch" class="material-icons" @click="startSearch">search</span>
-            <div v-else>
-                <input class=" border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
+<body class="bg-black bg-scroll bg-repeat-y ">
+    <div id="app" class="w-screen ">
+        <h1 class="text-center pt-10 text-5xl text-white">🌟 BLACKPINK IS THE REVOLUTION🌟 </h1>
+        <h1 class="text-center text-3xl p-3 text-white">Like Pic ({{picCount}}) 
+            💖 </h1>
+        <div class="text-center bg-pink-100 w-8/12 mx-auto transform transition duration-100 hover:scale-105">
+            <span v-if="isSearch" class="material-icons py-1 w-full" @click="startSearch">search</span>
+            <div v-else class="w-full flex flex-row justify-center py-1">
+                <input class=" border-2 w-full focus:outline-none focus:ring focus:border-blue-300 text-3xl" v-model="searchField" type="text" placeholder="Enter keyword...">
                 <button @click="cancelSearch" class="material-icons">cancel</button>
             </div>
         </div>
 
-        <div class="container px-8 py-2 mx-auto lg:px-4">
-            <div class="flex flex-wrap text-center">
-                <div v-if="filteredList.length !== 0" class="px-auto py-6 lg:w-1/3 md:w-full "
-                    v-for="(pic,i) in filteredList">
-                    <div class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-1/2 "
-                        @click="likePic(i)">
-                        <h1 class="text-3xl p-6">{{pic.name}}</h1>
-                        <img class="w-full block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            class="mx-auto" v-show="pic.like">
-                            <path
-                                d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
-                        </svg>
+        <div class="container mx-auto w-screen  my-8 bg-pink-200">
+            <div class="grid grid-cols-4 text-center " v-if="filteredList.length !== 0">
+                <div class="my-6" v-for="(pic,i) in filteredList">
+                    <div class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-10/12 mx-auto
+                                transform h-64 w-1/5 transition duration-500 hover:scale-105">
+                        <h1 class="text-2xl py-1">-{{pic.name}}-</h1>
+                        <img class="block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
+                        <div class="flex flex-row justify-start content-center space-x-4 p-2 w-9/12">
+                            <svg v-if="pic.like" class="w-2/12 fill-current text-pink-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                @click="likePic(i)">
+                                <path
+                                    d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+                            </svg>
+                            <svg v-else class="w-2/12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                @click="likePic(i)">
+                                <path
+                                    d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+                            </svg>
+                            <svg class="w-2/12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M14 9l-2.519 4-2.481-1.96-5 6.96h16l-6-9zm8-5v16h-20v-16h20zm2-2h-24v20h24v-20zm-20 6c0-1.104.896-2 2-2s2 .896 2 2c0 1.105-.896 2-2 2s-2-.895-2-2z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
-                <div v-else
-                    class="w-full bg-white rounded h-full text-grey-darkest no-underline shadow-md ma-auto text-center mt-24">
-                    <h1 class="text-7xl">No Image Found</h1>
-                </div>
             </div>
+            <h1 v-else class="text-7xl text-center px-10 py-10">No Image Found</h1>
         </div>
-
-        <!-- ************************************************************* -->
     </div>
 
     <!-- my main.js -->
