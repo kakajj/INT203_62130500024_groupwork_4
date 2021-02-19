@@ -23,12 +23,17 @@
 <body class="bg-black bg-scroll bg-repeat-y ">
     <div id="app" class="w-screen ">
         <h1 class="text-center pt-10 text-5xl text-white">🌟 BLACKPINK IS THE REVOLUTION🌟 </h1>
-        <h1 class="text-center text-3xl p-3 text-white">Like Pic ({{picCount}}) 
-            💖 </h1>
+        <h1 class="text-center text-3xl p-3 text-white">Like Pics ({{picCount}})</h1>
+        <div v-for="h in heartCount" >
+            <div class="flex flex-row justify-center">
+                <div class="flex">{{h}}</div>
+            </div>
+        </div>
         <div class="text-center bg-pink-100 w-8/12 mx-auto transform transition duration-100 hover:scale-105">
             <span v-if="isSearch" class="material-icons py-1 w-full" @click="startSearch">search</span>
             <div v-else class="w-full flex flex-row justify-center py-1">
-                <input class=" border-2 w-full focus:outline-none focus:ring focus:border-blue-300 text-3xl" v-model="searchField" type="text" placeholder="Enter keyword...">
+                <input class=" border-2 w-full focus:outline-none focus:ring focus:border-blue-300 text-3xl"
+                    v-model="searchField" type="text" placeholder="Enter keyword...">
                 <button @click="cancelSearch" class="material-icons">cancel</button>
             </div>
         </div>
@@ -36,13 +41,14 @@
         <div class="container mx-auto w-screen  my-8 bg-pink-200">
             <div class="grid grid-cols-4 text-center " v-if="filteredList.length !== 0">
                 <div class="my-6" v-for="(pic,i) in filteredList">
+
                     <div class="bg-white rounded h-full text-grey-darkest no-underline shadow-md w-10/12 mx-auto
                                 transform h-64 w-1/5 transition duration-500 hover:scale-105">
                         <h1 class="text-2xl py-1">-{{pic.name}}-</h1>
-                        <img class="block rounded-b" v-bind:src="pic.url" alt="A photo of a fox">
+                        <img class="block rounded-b" v-bind:src="pic.url">
                         <div class="flex flex-row justify-start content-center space-x-4 p-2 w-9/12">
-                            <svg v-if="pic.like" class="w-2/12 fill-current text-pink-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                @click="likePic(i)">
+                            <svg v-if="pic.like" class="w-2/12 fill-current text-pink-500"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" @click="likePic(i)">
                                 <path
                                     d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
                             </svg>
@@ -51,18 +57,49 @@
                                 <path
                                     d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
                             </svg>
-                            <svg class="w-2/12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <svg class="w-2/12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                @click="toggleModal(i)">
                                 <path
                                     d="M14 9l-2.519 4-2.481-1.96-5 6.96h16l-6-9zm8-5v16h-20v-16h20zm2-2h-24v20h24v-20zm-20 6c0-1.104.896-2 2-2s2 .896 2 2c0 1.105-.896 2-2 2s-2-.895-2-2z" />
                             </svg>
                         </div>
                     </div>
-                </div>
-            </div>
-            <h1 v-else class="text-7xl text-center px-10 py-10">No Image Found</h1>
-        </div>
-    </div>
 
+                    <div v-if="pic.showModal"
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-95">
+                        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                            <!--content-->
+                            <div
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
+                                <!--header-->
+                                <div class="flex items-start justify-center pt-5  text-center space-x-4">
+                                    <h3 class="text-3xl font-semibold text-pink-300">
+                                        {{pic.name}}
+                                    </h3>
+                                    <button v-on:click="toggleModal(i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            class="bg-transparent text-black w-8 h-8 block outline-none focus:outline-none fill-current text-pink-300">
+                                            <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 
+                                12 12 12 12-5.373 12-12-5.373-12-12-12zm5 15.538l-3.592-3.548 3.546-3.587-1.416-1.403-3.545 3.589-3.588-3.543-1.405 
+                                1.405 3.593 3.552-3.547 3.592 1.405 1.405 3.555-3.596 3.591 3.55 1.403-1.416z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!--body-->
+                                <div class="relative p-6 flex-auto w-9/12 mx-auto">
+                                    <img v-bind:src="pic.url">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </div>
+
+            </div>
+        </div>
+        <h1 v-else class="text-7xl text-center px-10 py-10">No Image Found</h1>
+    </div>
+    </div>
     <!-- my main.js -->
 
     <script src="./main.js"></script>
