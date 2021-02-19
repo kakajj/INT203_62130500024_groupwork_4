@@ -24,11 +24,12 @@
     <div id="app" class="w-screen ">
         <h1 class="text-center pt-10 text-5xl text-white">🌟 BLACKPINK IS THE REVOLUTION🌟 </h1>
         <h1 class="text-center text-3xl p-3 text-white">Like Pics ({{picCount}})</h1>
-        <div v-for="h in heartCount" >
-            <div class="flex flex-row justify-center">
-                <div class="flex">{{h}}</div>
-            </div>
+        <div class="flex flex-row justify-center" >
+            <div v-for="h in heartCount" >
+                <div class="text-5xl pb-4">{{h}}</div>
         </div>
+        </div>
+       
         <div class="text-center bg-pink-100 w-8/12 mx-auto transform transition duration-100 hover:scale-105">
             <span v-if="isSearch" class="material-icons py-1 w-full" @click="startSearch">search</span>
             <div v-else class="w-full flex flex-row justify-center py-1">

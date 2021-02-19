@@ -11,7 +11,7 @@ const app = {
                 {name:"Jennie HowYouLikeThat",url:"./images/h1.jpg",like:false,showModal:false},
                 {name:"Jisoo HowYouLikeThat",url:"./images/h2.jpg", like:false,showModal:false}
             ],
-            heart:["heart"],
+            heart:[""],
             searchField:'',
             isSearch: true,
             
