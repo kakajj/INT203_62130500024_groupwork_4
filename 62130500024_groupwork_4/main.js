@@ -35,7 +35,9 @@ const app = {
         },
     },
     methods:{
-        likePic(index){
+        likePic(text){
+            const index = this.pics.findIndex(pic => pic.name == text)
+
             if(this.pics[index].like == false){
                 this.heart.push("💖");
                 this.pics[index].like = !this.pics[index].like;
@@ -51,7 +53,8 @@ const app = {
             this.isSearch = !this.isSearch;
             this.searchField = '';
         },
-        toggleModal(index){
+        toggleModal(text){
+            const index = this.pics.findIndex(pic => pic.name == text)
             this.pics[index].showModal = !this.pics[index].showModal;
           }
     }
